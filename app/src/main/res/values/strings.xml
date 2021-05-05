@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">CurrencyExchange</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="track">How to TRACK our spending</string>
+    <string name="description1">We can easily track our spending by using this app.</string>
+    <string name="controls">How to CONTROL our spending</string>
+    <string name="description2">We can easily control and alter our spending by using this app.</string>
+    <string name="remove">How to REMOVE our spending</string>
+    <string name="description3">We can easily remove any one from our spending by using this app.</string>
+    <string name="currency">How to CHANGE currency of prices</string>
+    <string name="description4">We can easily display amount of our spending in different currency by using this app.</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
 
 </resources>
