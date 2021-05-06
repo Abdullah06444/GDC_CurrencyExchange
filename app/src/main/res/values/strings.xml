@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">CurrencyExchange</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">CurrencyExchange</string>
     <string name="track">How to TRACK our spending</string>
     <string name="description1">We can easily track our spending by using this app.</string>
     <string name="controls">How to CONTROL our spending</string>
@@ -13,5 +14,17 @@
     <string name="back">Back</string>
     <string name="skip">Skip</string>
     <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="spendingexplanation">spendingExplanation</string>
+    <string name="spendingtype">spendingType</string>
+    <string name="spendingamount">0.00</string>
+    <string name="spendingcurrency">TRY</string>
+    <string name="textname">Welcome\nYour Name</string>
+    <string name="texttotalamount">0.00</string>
+    <string name="texttotalcurrency">TRY</string>
+    <string name="enteryourname">Enter Your Name</string>
+    <string name="male">Mr.</string>
+    <string name="female">Ms.</string>
+    <string name="hidden">Hidden</string>
 
 </resources>
