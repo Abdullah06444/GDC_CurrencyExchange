@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         if (preferences.getInt(gender, -1) == 1)
             nameText.text = "Hello\nMr. " + preferences.getString(name,"")
         else if (preferences.getInt(gender, -1) == 2)
-            nameText.text = "Hello\nMrs. " + preferences.getString(name,"")
+            nameText.text = "Hello\nMs. " + preferences.getString(name,"")
         else if (preferences.getInt(gender, -1) == 0)
             nameText.text = "Hello\n" + preferences.getString(name,"")
         else

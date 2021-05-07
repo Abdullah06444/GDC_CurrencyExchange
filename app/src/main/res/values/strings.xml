@@ -23,8 +23,8 @@
     <string name="texttotalamount">0.00</string>
     <string name="texttotalcurrency">TRY</string>
     <string name="enteryourname">Enter Your Name</string>
-    <string name="male">Mr.</string>
-    <string name="female">Ms.</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
     <string name="hidden">Hidden</string>
 
 </resources>
