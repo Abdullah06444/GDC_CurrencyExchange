@@ -26,5 +26,16 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="hidden">Hidden</string>
+    <string name="add">Add</string>
+    <string name="trycurrency">TRY</string>
+    <string name="usdcurrency">USD</string>
+    <string name="eurcurrency">EUR</string>
+    <string name="gbpcurrency">GBP</string>
+    <string name="textinserttitle">Insert to\nSpending List</string>
+    <string name="textdeletetitle">Delete from\nSpending List</string>
+    <string name="shoppingextra">Shopping/Extra</string>
+    <string name="rent">Rent</string>
+    <string name="bill">Bill</string>
+    <string name="delete">Delete</string>
 
 </resources>

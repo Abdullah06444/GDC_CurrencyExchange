@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_name.view.*
@@ -27,6 +28,11 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false)
         addName()
+
+
+
+        addRecyclerView()
+        deleteRecyclerView()
         return v
     }
 
@@ -77,5 +83,17 @@ class HomeFragment : Fragment() {
         layoutName.findViewById<Button>(R.id.buttonSkip).setOnClickListener {
             buildAlert.dismiss()
         }
+    }
+
+    private fun addRecyclerView(){
+
+        v.buttonAdd.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_insertFragment)
+        }
+    }
+
+    private fun deleteRecyclerView(){
+
+        //findNavController().navigate(R.id.action_homeFragment_to_deleteFragment)
     }
 }
