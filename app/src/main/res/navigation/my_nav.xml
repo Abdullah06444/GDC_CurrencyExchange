@@ -46,12 +46,23 @@
     </fragment>
     <fragment
         android:id="@+id/insertFragment"
-        android:name="com.example.currencyexchange.InsertFragment"
+        android:name="com.example.currencyexchange.insertdeletescreens.InsertFragment"
         android:label="fragment_insert"
-        tools:layout="@layout/fragment_insert" />
+        tools:layout="@layout/fragment_insert" >
+        <action
+            android:id="@+id/action_insertFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/deleteFragment"
-        android:name="com.example.currencyexchange.DeleteFragment"
+        android:name="com.example.currencyexchange.insertdeletescreens.DeleteFragment"
         android:label="fragment_delete"
-        tools:layout="@layout/fragment_delete" />
+        tools:layout="@layout/fragment_delete" >
+        <action
+            android:id="@+id/action_deleteFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentSpending"
+            app:argType="com.example.currencyexchange.database.Spending"/>
+    </fragment>
 </navigation>

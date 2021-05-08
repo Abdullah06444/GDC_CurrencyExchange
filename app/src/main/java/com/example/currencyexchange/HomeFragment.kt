@@ -3,6 +3,7 @@ package com.example.currencyexchange
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,29 +12,57 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.currencyexchange.apiconnection.Connection
+import com.example.currencyexchange.apiconnection.CurrencyApi
+import com.example.currencyexchange.apiconnection.CurrencyConverter
+import com.example.currencyexchange.database.SpendingListAdapter
+import com.example.currencyexchange.database.SpendingViewModel
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_name.view.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),View.OnClickListener {
 
     lateinit var v: View
     val gender = "GENDER"
     val name = "NAME"
+    private lateinit var mSpendingViewModel: SpendingViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false)
+        //isOnline()
         addName()
+        setRecyclerView("TRY")
 
-
-
-        addRecyclerView()
-        deleteRecyclerView()
+        v.buttonTRY.setOnClickListener(this)
+        v.buttonUSD.setOnClickListener(this)
+        v.buttonEUR.setOnClickListener(this)
+        v.buttonGBP.setOnClickListener(this)
         return v
+    }
+
+    private fun isOnline(){
+
+        val checkConnection = Connection(requireContext())
+        checkConnection.observe(requireActivity(), {
+                isconnected ->
+            if (isconnected){
+                var currencyApi = CurrencyApi(requireContext())
+                currencyApi.getData()
+                Log.v("HomeActivity", "Connected")
+            } else {
+                Log.v("HomeActivity", "Not Connected")
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,15 +114,68 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun addRecyclerView(){
+    companion object {
+        private const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1
+    }
 
-        v.buttonAdd.setOnClickListener{
+    private fun setRecyclerView(base: String) {
+
+        val adapter = SpendingListAdapter(requireContext(), base)
+        val recyclerview = v.recyclerView
+        recyclerview.adapter = adapter
+        recyclerview.layoutManager = LinearLayoutManager(requireContext())
+
+        val currencyConverter = CurrencyConverter(requireContext())
+
+        mSpendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
+        mSpendingViewModel.readAllData.observe(requireActivity(), Observer { spending ->
+            adapter.setData(spending)
+            var value:Double = 0.0
+            for(spent in spending) {
+                value += currencyConverter.convert(spent.currency, base, spent.cost)
+            }
+            v.textTotalAmount.setText(String.format("%.2f", value))
+            v.textTotalCurrency.setText(base)
+        })
+
+        v.buttonAdd.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_insertFragment)
         }
     }
 
-    private fun deleteRecyclerView(){
+    fun changeBase(view: View) {
+        when (view.id) {
+            R.id.buttonTRY -> {
+                buttonTRY.setTextColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                setRecyclerView("TRY")}
+            R.id.buttonUSD -> {
+                buttonTRY.setTextColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                setRecyclerView("USD")}
+            R.id.buttonEUR -> {
+                buttonTRY.setTextColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                setRecyclerView("EUR")}
+            R.id.buttonGBP -> {
+                buttonTRY.setTextColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                setRecyclerView("GBP")}
+        }
+    }
 
-        //findNavController().navigate(R.id.action_homeFragment_to_deleteFragment)
+    override fun onClick(view: View?) {
+        if (view != null) {
+            changeBase(view)
+        }
+
     }
 }

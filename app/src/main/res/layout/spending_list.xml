@@ -5,22 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:id="@+id/recyclerView">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
         android:padding="15dp">
 
         <ImageView
+            android:id="@+id/imageRow"
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:id="@+id/imageRow"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/spendingExplanation"
             android:hint="@string/spendingexplanation"
             android:textSize="20sp"
@@ -34,7 +37,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:id="@+id/spendingType"
             android:hint="@string/spendingtype"
             android:textStyle="bold"
@@ -49,11 +52,11 @@
         <TextView
             android:id="@+id/spendingAmount"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@+id/spendingExplanation"
             android:hint="@string/spendingamount"
             android:textColor="@color/lightgold"
             android:textColorHint="@color/lightgold"
@@ -61,18 +64,18 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/spendingCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_below="@id/spendingAmount"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:hint="@string/spendingcurrency"
-            android:textStyle="bold"
             android:textColor="@color/darkgold"
             android:textColorHint="@color/darkgold"
-            android:layout_toEndOf="@+id/spendingExplanation"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@id/spendingAmount"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

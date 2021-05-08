@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".InsertFragment">
+    tools:context=".insertdeletescreens.InsertFragment">
 
     <ImageView
         android:id="@+id/backIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_back"
         app:layout_constraintEnd_toStartOf="@+id/textInsertTitle"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/textinserttitle"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -34,16 +34,12 @@
         android:id="@+id/textSpendingExplanation"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@color/lightgold"
         android:padding="5dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,16 +57,12 @@
         android:id="@+id/textSpendingAmount"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="75dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@color/lightgold"
         android:padding="5dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +74,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="@string/spendingamount"
-            android:inputType="number"/>
+            android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
@@ -120,9 +112,9 @@
         android:id="@+id/typeRadioGroup3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="30dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -134,27 +126,28 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/trycurrency"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginEnd="20dp"/>
 
         <RadioButton
             android:id="@+id/americandollar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/usdcurrency"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginEnd="20dp"/>
 
         <RadioButton
             android:id="@+id/europeaneuro"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/eurcurrency"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginEnd="20dp"/>
 
         <RadioButton
             android:id="@+id/britishpound"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/gbpcurrency" />
+            android:text="@string/gbpcurrency"
+            android:layout_marginEnd="20dp"/>
     </RadioGroup>
 
     <Button
