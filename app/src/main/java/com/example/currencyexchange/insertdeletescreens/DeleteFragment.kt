@@ -15,8 +15,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.currencyexchange.R
 import com.example.currencyexchange.database.SpendingViewModel
 import kotlinx.android.synthetic.main.fragment_delete.view.*
-import kotlinx.android.synthetic.main.fragment_delete.view.buttonDone
-import kotlinx.android.synthetic.main.fragment_delete.view.buttonSkip
 
 class DeleteFragment : Fragment() {
 
@@ -35,7 +33,7 @@ class DeleteFragment : Fragment() {
 
         mSpendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
 
-        //getCurrentData()
+        getCurrentData()
 
         v.buttonSkip.setOnClickListener{
             findNavController().navigate(R.id.action_deleteFragment_to_homeFragment)
@@ -43,12 +41,12 @@ class DeleteFragment : Fragment() {
 
         v.buttonDone.setOnClickListener{
             deleteAlert()
-            getCurrentData()
         }
 
         return v
     }
 
+    @Suppress("DEPRECATION")
     fun deleteAlert(){
 
         val builder = AlertDialog.Builder(requireContext())
@@ -70,15 +68,21 @@ class DeleteFragment : Fragment() {
 
     private fun getCurrentData() {
 
-        v.itemSpendingExplanation.text = args.currentSpending.description.toString()
+        v.itemSpendingExplanation.text = args.currentSpending.description
+        v.itemSpendingType.setText(
+            when(args.currentSpending.type) {
+                0 -> "shopping_extra"
+                1 -> "bill"
+                else -> "rent"
+            }
+        )
         v.itemSpendingAmount.text = String.format("%.2f", args.currentSpending.cost)
         v.itemSpendingCurrency.text = args.currentSpending.currency
         v.itemIcon.setImageResource(
             when(args.currentSpending.type){
                 0 -> R.drawable.ic_shopping_extra
                 1 -> R.drawable.ic_bill
-                2 -> R.drawable.ic_rent
-                else -> R.drawable.ic_shopping_extra
+                else -> R.drawable.ic_rent
             }
         )
 
@@ -87,8 +91,7 @@ class DeleteFragment : Fragment() {
                 when(args.currentSpending.type) {
                     0 -> R.color.blue
                     1 -> R.color.yellow
-                    2 -> R.color.green
-                    else -> R.color.blue
+                    else -> R.color.green
                 }), android.graphics.PorterDuff.Mode.SRC_IN)
 
     }

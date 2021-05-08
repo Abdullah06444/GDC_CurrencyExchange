@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.currencyexchange.HomeFragmentDirections
 import com.example.currencyexchange.apiconnection.CurrencyConverter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -105,15 +106,21 @@ class SpendingListAdapter(val context: Context, val base: String):
         val currencyConverter = CurrencyConverter(context)
 
         val currentSpending = spendingList[position]
-        holder.binding.spendingExplanation.text = currentSpending.description.toString()
+        holder.binding.spendingExplanation.text = currentSpending.description
+        holder.binding.spendingType.setText(
+            when(currentSpending.type){
+                0 -> "shopping_extra"
+                1 -> "bill"
+                else -> "rent"
+            }
+        )
         holder.binding.spendingAmount.text = String.format("%.2f", currencyConverter.convert(currentSpending.currency, base, currentSpending.cost))
         holder.binding.spendingCurrency.text = base
         holder.binding.imageRow.setImageResource(
             when(currentSpending.type){
                 0 -> R.drawable.ic_shopping_extra
                 1 -> R.drawable.ic_bill
-                2 -> R.drawable.ic_rent
-                else -> R.drawable.ic_shopping_extra
+                else -> R.drawable.ic_rent
             }
         )
 
@@ -122,13 +129,12 @@ class SpendingListAdapter(val context: Context, val base: String):
             when(currentSpending.type) {
                 0 -> R.color.blue
                 1 -> R.color.yellow
-                2 -> R.color.green
-                else -> R.color.blue
+                else -> R.color.green
             }
         ), PorterDuff.Mode.SRC_IN)
 
         holder.binding.recyclerView.setOnClickListener{
-            holder.itemView.findNavController().navigate(R.id.action_homeFragment_to_deleteFragment)
+            holder.itemView.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDeleteFragment(currentSpending))
         }
     }
 

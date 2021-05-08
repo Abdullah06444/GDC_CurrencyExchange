@@ -9,8 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CurrencyApi(val context: Context)  {
 
-    val PREFS_FILENAME = "com.example.currencyexchange"
-    var BaseUrl = "https://api.ratesapi.io/api/"
     val KEY_BASE = "BASE"
     val KEY_TRY = "TRY"
     val KEY_USD = "USD"
@@ -19,25 +17,33 @@ class CurrencyApi(val context: Context)  {
 
     fun getData(){
 
-        val prefences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
+        val prefences = context.getSharedPreferences("com.example.currencyexchange", Context.MODE_PRIVATE)
         val editor = prefences.edit()
-        val retrofit = Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(GsonConverterFactory.create()).build()
-        val service = retrofit.create(CurrencyService::class.java)
-        val call = service.getCurrencyList("TRY")
 
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.ratesapi.io/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(CurrencyService::class.java)
+
+        val call = service.getCurrencyList("")
         call.enqueue(object : Callback<CurrencyModel> {
             override fun onResponse(call: Call<CurrencyModel>, response: Response<CurrencyModel>) {
                 if (response.code() == 200) {
                     val currencyModel = response.body()!!
                     editor.putString(KEY_BASE, currencyModel.base)
+                    editor.putFloat(KEY_EUR, 1.0F)
                     editor.putFloat(KEY_TRY, currencyModel.rates.TRY.toString().toFloat())
                     editor.putFloat(KEY_USD, currencyModel.rates.USD.toString().toFloat())
-                    editor.putFloat(KEY_EUR, currencyModel.rates.EUR.toString().toFloat())
+                    //editor.putFloat(KEY_EUR, currencyModel.rates.EUR.toString().toFloat())
                     editor.putFloat(KEY_GBP, currencyModel.rates.GBP.toString().toFloat())
                     editor.apply()
                 }
             }
-            override fun onFailure(call: Call<CurrencyModel>, t: Throwable) {}
+            override fun onFailure(call: Call<CurrencyModel>, t: Throwable) {
+
+            }
         })
     }
 }

@@ -14,7 +14,11 @@
     <color name="lightgold">#FFE3C107</color>
     <color name="darkgold">#FFF89645</color>
     <color name="red">#80EA4335</color>
+    <color name="lightred">#1AEA4335</color>
     <color name="blue">#804285F4</color>
+    <color name="lightblue">#1A4285F4</color>
     <color name="green">#800F9D58</color>
+    <color name="lightgreen">#1A0F9D58</color>
     <color name="yellow">#80FBBC04</color>
+    <color name="lightyellow">#1AFBBC04</color>
 </resources>

@@ -24,7 +24,6 @@ import com.example.currencyexchange.database.SpendingViewModel
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kotlinx.android.synthetic.main.fragment_name.view.*
 
 class HomeFragment : Fragment(),View.OnClickListener {
 
@@ -39,9 +38,9 @@ class HomeFragment : Fragment(),View.OnClickListener {
     ): View {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false)
-        //isOnline()
+        isOnline()
         addName()
-        setRecyclerView("TRY")
+        setRecyclerView("EUR")
 
         v.buttonTRY.setOnClickListener(this)
         v.buttonUSD.setOnClickListener(this)
@@ -53,7 +52,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
     private fun isOnline(){
 
         val checkConnection = Connection(requireContext())
-        checkConnection.observe(requireActivity(), {
+        checkConnection.observe(requireActivity(), Observer {
                 isconnected ->
             if (isconnected){
                 var currencyApi = CurrencyApi(requireContext())
@@ -70,7 +69,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
         val preferences = requireContext().getSharedPreferences("com.example.currencyexchange", Context.MODE_PRIVATE)
         val nameText: TextView = v.textName
-        val genderRadioButton = v.typeRadioGroup
+        //val genderRadioButton = v.typeRadioGroup
         if (preferences.getInt(gender, -1) == 1)
             nameText.text = "Hello\nMr. " + preferences.getString(name,"")
         else if (preferences.getInt(gender, -1) == 2)
@@ -143,31 +142,48 @@ class HomeFragment : Fragment(),View.OnClickListener {
         }
     }
 
+    @Suppress("DEPRECATION")
     fun changeBase(view: View) {
         when (view.id) {
             R.id.buttonTRY -> {
-                buttonTRY.setTextColor(resources.getColor(R.color.red))
-                buttonUSD.setTextColor(resources.getColor(R.color.blue))
-                buttonEUR.setTextColor(resources.getColor(R.color.green))
-                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                buttonTRY.setTextColor(resources.getColor(R.color.white))
+                buttonTRY.setBackgroundColor(resources.getColor(R.color.lightred))
+                buttonUSD.setTextColor(resources.getColor(R.color.black))
+                buttonUSD.setBackgroundColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.black))
+                buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.black))
+                buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
                 setRecyclerView("TRY")}
             R.id.buttonUSD -> {
-                buttonTRY.setTextColor(resources.getColor(R.color.red))
-                buttonUSD.setTextColor(resources.getColor(R.color.blue))
-                buttonEUR.setTextColor(resources.getColor(R.color.green))
-                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                buttonTRY.setTextColor(resources.getColor(R.color.black))
+                buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.white))
+                buttonUSD.setBackgroundColor(resources.getColor(R.color.lightblue))
+                buttonEUR.setTextColor(resources.getColor(R.color.black))
+                buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.black))
+                buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
                 setRecyclerView("USD")}
             R.id.buttonEUR -> {
-                buttonTRY.setTextColor(resources.getColor(R.color.red))
-                buttonUSD.setTextColor(resources.getColor(R.color.blue))
-                buttonEUR.setTextColor(resources.getColor(R.color.green))
-                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                buttonTRY.setTextColor(resources.getColor(R.color.black))
+                buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.black))
+                buttonUSD.setBackgroundColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.white))
+                buttonEUR.setBackgroundColor(resources.getColor(R.color.lightgreen))
+                buttonGBP.setTextColor(resources.getColor(R.color.black))
+                buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
                 setRecyclerView("EUR")}
             R.id.buttonGBP -> {
-                buttonTRY.setTextColor(resources.getColor(R.color.red))
-                buttonUSD.setTextColor(resources.getColor(R.color.blue))
-                buttonEUR.setTextColor(resources.getColor(R.color.green))
-                buttonGBP.setTextColor(resources.getColor(R.color.yellow))
+                buttonTRY.setTextColor(resources.getColor(R.color.black))
+                buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
+                buttonUSD.setTextColor(resources.getColor(R.color.black))
+                buttonUSD.setBackgroundColor(resources.getColor(R.color.blue))
+                buttonEUR.setTextColor(resources.getColor(R.color.black))
+                buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
+                buttonGBP.setTextColor(resources.getColor(R.color.white))
+                buttonGBP.setBackgroundColor(resources.getColor(R.color.lightyellow))
                 setRecyclerView("GBP")}
         }
     }

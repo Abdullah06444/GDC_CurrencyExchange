@@ -14,7 +14,7 @@ data class Spending(
     val description: String,
 
     @ColumnInfo(name="cost")
-    val cost: Double,
+    val cost: Double = 0.00,
 
     @ColumnInfo(name="type")
     val type: Int,

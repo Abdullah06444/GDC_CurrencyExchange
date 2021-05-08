@@ -17,8 +17,8 @@ class CurrencyConverter(val context: Context) {
             when(base){
                 "TRY" -> KEY_TRY
                 "USD" -> KEY_USD
-                "GBP" -> KEY_GBP
                 "EUR" -> KEY_EUR
+                "GBP" -> KEY_GBP
                 else -> "KEY_BASE"
             }, when(base){
                 "TRY" -> 10.0f
