@@ -1,5 +1,6 @@
 package com.example.currencyexchange.apiconnection
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,7 +17,8 @@ class Connection(private val context: Context) : LiveData<Boolean>() {
 
     private lateinit var networkCallback: ConnectivityManager.NetworkCallback
 
-
+    @Suppress("DEPRECATION")
+    @SuppressLint("ObsoleteSdkInt")
     override fun onActive() {
         super.onActive()
         updateConnection()
@@ -51,6 +53,7 @@ class Connection(private val context: Context) : LiveData<Boolean>() {
     }
 
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun connectivityManagerCallback(): ConnectivityManager.NetworkCallback {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             networkCallback = object : ConnectivityManager.NetworkCallback() {
@@ -80,6 +83,7 @@ class Connection(private val context: Context) : LiveData<Boolean>() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun updateConnection() {
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         postValue(activeNetwork?.isConnected == true)

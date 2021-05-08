@@ -22,7 +22,7 @@ class InsertFragment : Fragment() {
 
     lateinit var v: View
 
-    private lateinit var mSpendingViewModel: SpendingViewModel
+    private lateinit var spendingViewModel: SpendingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +31,7 @@ class InsertFragment : Fragment() {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_insert, container, false)
 
-        mSpendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
+        spendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
 
         v.buttonDone.setOnClickListener {
             insertDataToDatabase()
@@ -51,13 +51,13 @@ class InsertFragment : Fragment() {
         val currencyType: RadioGroup = v.typeRadioGroup3
 
         if(inputCheck(descText.text.toString(), costText.text.toString(), spendingType.checkedRadioButtonId.toString(), currencyType.checkedRadioButtonId.toString())) {
-            var type: Int = 0
+            var type: Int = -1
             when (spendingType.checkedRadioButtonId) {
                 R.id.bill -> type = 1
                 R.id.rent -> type = 2
                 R.id.shopping -> type = 0
             }
-            var currency: String = "USD"
+            var currency: String = ""
             when (currencyType.checkedRadioButtonId) {
                 R.id.turkishlira -> currency = "TRY"
                 R.id.americandollar -> currency = "USD"
@@ -66,7 +66,7 @@ class InsertFragment : Fragment() {
             }
 
             val spending = Spending(descText.text.toString(),costText.text.toString().toDouble(), type, currency)
-            mSpendingViewModel.addSpending(spending)
+            spendingViewModel.addSpending(spending)
             Toast.makeText(requireContext(), "Succesfully Added", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_insertFragment_to_homeFragment)
         } else {

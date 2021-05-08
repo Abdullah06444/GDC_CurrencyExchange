@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +29,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
     lateinit var v: View
     val gender = "GENDER"
     val name = "NAME"
-    private lateinit var mSpendingViewModel: SpendingViewModel
+    private lateinit var spendingViewModel: SpendingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +39,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_home, container, false)
         isOnline()
         addName()
-        setRecyclerView("EUR")
+        recyclerView("TRY") // addSpending & deleteSpending
 
         v.buttonTRY.setOnClickListener(this)
         v.buttonUSD.setOnClickListener(this)
@@ -51,12 +50,10 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
     private fun isOnline(){
 
-        val checkConnection = Connection(requireContext())
-        checkConnection.observe(requireActivity(), Observer {
+        Connection(requireContext()).observe(requireActivity(), {
                 isconnected ->
             if (isconnected){
-                var currencyApi = CurrencyApi(requireContext())
-                currencyApi.getData()
+                CurrencyApi(requireContext()).getData()
                 Log.v("HomeActivity", "Connected")
             } else {
                 Log.v("HomeActivity", "Not Connected")
@@ -69,7 +66,6 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
         val preferences = requireContext().getSharedPreferences("com.example.currencyexchange", Context.MODE_PRIVATE)
         val nameText: TextView = v.textName
-        //val genderRadioButton = v.typeRadioGroup
         if (preferences.getInt(gender, -1) == 1)
             nameText.text = "Hello\nMr. " + preferences.getString(name,"")
         else if (preferences.getInt(gender, -1) == 2)
@@ -113,11 +109,9 @@ class HomeFragment : Fragment(),View.OnClickListener {
         }
     }
 
-    companion object {
-        private const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1
-    }
+    //companion object {    private const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1  }
 
-    private fun setRecyclerView(base: String) {
+    private fun recyclerView(base: String) {
 
         val adapter = SpendingListAdapter(requireContext(), base)
         val recyclerview = v.recyclerView
@@ -126,10 +120,10 @@ class HomeFragment : Fragment(),View.OnClickListener {
 
         val currencyConverter = CurrencyConverter(requireContext())
 
-        mSpendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
-        mSpendingViewModel.readAllData.observe(requireActivity(), Observer { spending ->
+        spendingViewModel = ViewModelProvider(this).get(SpendingViewModel::class.java)
+        spendingViewModel.readAllData.observe(requireActivity(), { spending ->
             adapter.setData(spending)
-            var value:Double = 0.0
+            var value = 0.0
             for(spent in spending) {
                 value += currencyConverter.convert(spent.currency, base, spent.cost)
             }
@@ -154,7 +148,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
                 buttonGBP.setTextColor(resources.getColor(R.color.black))
                 buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
-                setRecyclerView("TRY")}
+                recyclerView("TRY")}
             R.id.buttonUSD -> {
                 buttonTRY.setTextColor(resources.getColor(R.color.black))
                 buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
@@ -164,7 +158,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
                 buttonGBP.setTextColor(resources.getColor(R.color.black))
                 buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
-                setRecyclerView("USD")}
+                recyclerView("USD")}
             R.id.buttonEUR -> {
                 buttonTRY.setTextColor(resources.getColor(R.color.black))
                 buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
@@ -174,7 +168,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 buttonEUR.setBackgroundColor(resources.getColor(R.color.lightgreen))
                 buttonGBP.setTextColor(resources.getColor(R.color.black))
                 buttonGBP.setBackgroundColor(resources.getColor(R.color.yellow))
-                setRecyclerView("EUR")}
+                recyclerView("EUR")}
             R.id.buttonGBP -> {
                 buttonTRY.setTextColor(resources.getColor(R.color.black))
                 buttonTRY.setBackgroundColor(resources.getColor(R.color.red))
@@ -184,7 +178,7 @@ class HomeFragment : Fragment(),View.OnClickListener {
                 buttonEUR.setBackgroundColor(resources.getColor(R.color.green))
                 buttonGBP.setTextColor(resources.getColor(R.color.white))
                 buttonGBP.setBackgroundColor(resources.getColor(R.color.lightyellow))
-                setRecyclerView("GBP")}
+                recyclerView("GBP")}
         }
     }
 
@@ -192,6 +186,5 @@ class HomeFragment : Fragment(),View.OnClickListener {
         if (view != null) {
             changeBase(view)
         }
-
     }
 }
