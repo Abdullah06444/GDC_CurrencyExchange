@@ -125,8 +125,13 @@ class HomeFragment : Fragment(),View.OnClickListener {
             adapter.setData(spending)
             var value = 0.0
             for(spent in spending) {
-                value += currencyConverter.convert(spent.currency, base, spent.cost)
+                if(spent.currency != base)
+                    value += currencyConverter.convert(spent.currency, base, spent.cost)
+                else
+                    value += spent.cost
+                Log.v("HomeFragment",value.toString())
             }
+            Log.v("HomeFragment son",value.toString())
             v.textTotalAmount.setText(String.format("%.2f", value))
             v.textTotalCurrency.setText(base)
         })

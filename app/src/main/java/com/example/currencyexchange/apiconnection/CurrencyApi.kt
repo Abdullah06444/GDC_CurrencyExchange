@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CurrencyApi(val context: Context)  {
 
-    val KEY_BASE = "BASE"
+    //val KEY_BASE = "BASE"
     val KEY_TRY = "TRY"
     val KEY_USD = "USD"
     val KEY_EUR = "EUR"
@@ -36,14 +36,14 @@ class CurrencyApi(val context: Context)  {
             override fun onResponse(call: Call<CurrencyModel>, response: Response<CurrencyModel>) {
                 if (response.code() == 1) {
                     val currencyModel = response.body()!!
-                    /*editor.putString(KEY_BASE, currencyModel.base)
-                    editor.putFloat(KEY_EUR, 1.0F)
+                    //editor.putString(KEY_BASE, currencyModel.base)
+                    //editor.putFloat(KEY_EUR, 1.0F)
                     editor.putFloat(KEY_TRY, currencyModel.rates.TRY.toString().toFloat())
                     editor.putFloat(KEY_USD, currencyModel.rates.USD.toString().toFloat())
-                    //editor.putFloat(KEY_EUR, currencyModel.rates.EUR.toString().toFloat())
+                    editor.putFloat(KEY_EUR, currencyModel.rates.EUR.toString().toFloat())
                     editor.putFloat(KEY_GBP, currencyModel.rates.GBP.toString().toFloat())
-                    editor.putFloat("convert?q=USD_TRY&compact=ultra&apiKey=d671b6e4fa740cb4ec4f", currencyModel.rates.USD.toString().toFloat())
-*/
+                    //editor.putFloat("convert?q=USD_TRY&compact=ultra&apiKey=d671b6e4fa740cb4ec4f", currencyModel.rates.USD.toString().toFloat())
+
                     editor.apply()
                 }
             }
